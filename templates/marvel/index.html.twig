@@ -9,13 +9,20 @@
 </style>
 
 <div class="example-wrapper">
-    {{ data }}!
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Applications/MAMP/htdocs/ProjetSymfonyEuronews/src/Controller/MarvelController.php'|file_link(0) }}">src/Controller/MarvelController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Applications/MAMP/htdocs/ProjetSymfonyEuronews/templates/marvel/index.html.twig'|file_link(0) }}">templates/marvel/index.html.twig</a></code></li>
-    </ul>
+    <div class ="container">
+         <div class ="row">
+         {% for comic in response.data.results %}
+         <div class ="col-4">
+         <div class ="card">
+         <img src ="{{comic.thumbnail.path}}.{{comic.thumbnail.extension}}"/>
+            <p>
+                {{comic.title}}            
+            </p>
+             
+        </div>
+        </div>
+         {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

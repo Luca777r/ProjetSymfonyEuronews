@@ -20,15 +20,17 @@ class MarvelController extends AbstractController
         $httpClient = HttpClient::create([], 6, 10);
         $response = $httpClient->request(
             'GET',
-            'https://gateway.marvel.com:443/v1/public/comics?ts=' . $ts . '&apikey=58c3607be4b218a65242d720871dee86&hash=' . $hash,
+            'https://gateway.marvel.com:443/v1/public/comics?characters=1009165&orderBy=onsaleDate&limit=50&ts=' . $ts . '&apikey=58c3607be4b218a65242d720871dee86&hash=' . $hash,
         );
 
         $statusCode = $response->getStatusCode();
         $content = $response->getContent();
+        $data = json_decode($content);
+        // dd($data);
 
         return $this->render('marvel/index.html.twig', [
             'controller_name' => 'MarvelController',
-            "data" => $content
+            "response" => $data
         ]);
     }
 }
