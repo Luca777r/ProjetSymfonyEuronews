@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MarvelController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <div class ="container">
+    <a href="{{ path('marvel') }}">
+        <img class ="mx-auto d-block w-25 mb-1" src ="https://s1.qwant.com/thumbr/0x380/8/a/e4a7d6537baa798e869ec357dd8a3d5cf62e156128825a2f4e9782101a935b/Marvel-comics-logo-vector.png?u=http%3A%2F%2F2.bp.blogspot.com%2F-CfcNNFkQgKg%2FVVA2-IZrYMI%2FAAAAAAAACW4%2F2UKFilGssf0%2Fs1600%2FMarvel-comics-logo-vector.png&q=0&b=1&p=0&a=0"/>
+    </a>
+    <img class ="mx-auto d-block w-75 mb-5" src ="https://see.fontimg.com/api/renderfont4/MoEr/eyJyIjoiZnMiLCJoIjo5NCwidyI6MjAwMCwiZnMiOjQ3LCJmZ2MiOiIjRDQxODE4IiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/THVjYSBEZWwgUm9zc28gKiBFdXJvbmV3cw/star-guard-3d-italic.png"/>
+         <div class ="row">
+            {% for character in response.data.results %}
+         <div class ="col-4">
+            <div class ="card mb-5">
+                <img src ="{{character.thumbnail.path}}.{{character.thumbnail.extension}}"/>
+                    <p class ="text-center mt-3">
+                        {{character.name}}         
+                    </p> 
+                </div>
+            </div>
+         {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
