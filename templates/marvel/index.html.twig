@@ -8,6 +8,10 @@
     <div class ="container">
         <img class ="mx-auto d-block w-25 mb-1" src ="https://s1.qwant.com/thumbr/0x380/8/a/e4a7d6537baa798e869ec357dd8a3d5cf62e156128825a2f4e9782101a935b/Marvel-comics-logo-vector.png?u=http%3A%2F%2F2.bp.blogspot.com%2F-CfcNNFkQgKg%2FVVA2-IZrYMI%2FAAAAAAAACW4%2F2UKFilGssf0%2Fs1600%2FMarvel-comics-logo-vector.png&q=0&b=1&p=0&a=0"/>
         <img class ="mx-auto d-block w-75 mb-5" src ="https://see.fontimg.com/api/renderfont4/MoEr/eyJyIjoiZnMiLCJoIjo5NCwidyI6MjAwMCwiZnMiOjQ3LCJmZ2MiOiIjRDQxODE4IiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/THVjYSBEZWwgUm9zc28gKiBFdXJvbmV3cw/star-guard-3d-italic.png"/>
+        <form class="input-group mb-5" action="{{ path('marvel') }}" method="GET">
+            <input type="search" class="form-control rounded" name="search" placeholder="Entrez un nom de Comics" aria-label="Rechercher" />
+            <button type="submit" class="btn btn-outline-danger">Rechercher</button>
+        </form>
          <div class ="row">
          {% for comic in response.data.results %}
             <div class ="col-4">

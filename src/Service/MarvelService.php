@@ -2,21 +2,29 @@
 
 namespace App\Service;
 
+use stdClass;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\HttpFoundation\Response;
+
 
 class MarvelService
 {
-    public function getMarvelComics()
+    protected $marvelPrivateKey;
+    protected $marvelPublicKey;
+
+    public function __construct(string $marvelPrivateKey, string $marvelPublicKey)
+    {
+        $this->marvelPrivateKey = $marvelPrivateKey;
+        $this->marvelPublicKey = $marvelPublicKey;
+    }
+
+    public function getMarvelComics(string $hero): stdClass
     {
         $ts = time();
-        $private = "7ccb4de3a15ad51661809fde5ca3743ebaac6956";
-        $public = "58c3607be4b218a65242d720871dee86";
-        $hash = md5($ts . $private . $public);
+        $hash = md5($ts . $this->marvelPrivateKey . $this->marvelPublicKey);
         $httpClient = HttpClient::create([], 6, 10);
         $response = $httpClient->request(
             'GET',
-            'https://gateway.marvel.com:443/v1/public/comics?titleStartsWith=avengers&orderBy=onsaleDate&limit=50&ts=' . $ts . '&apikey=58c3607be4b218a65242d720871dee86&hash=' . $hash,
+            'https://gateway.marvel.com:443/v1/public/comics?titleStartsWith=' . $hero . '&orderBy=onsaleDate&limit=50&ts=' . $ts . '&apikey=' . $this->marvelPublicKey . '&hash=' . $hash,
         );
 
         $statusCode = $response->getStatusCode();
@@ -26,16 +34,15 @@ class MarvelService
 
         return $data;
     }
-    public function getMarvelComicsCharacters($id)
+
+    public function getMarvelComicsCharacters(int $id)
     {
         $ts = time();
-        $private = "7ccb4de3a15ad51661809fde5ca3743ebaac6956";
-        $public = "58c3607be4b218a65242d720871dee86";
-        $hash = md5($ts . $private . $public);
+        $hash = md5($ts . $this->marvelPrivateKey . $this->marvelPublicKey);
         $httpClient = HttpClient::create([], 6, 10);
         $response = $httpClient->request(
             'GET',
-            'https://gateway.marvel.com:443/v1/public/comics/' . $id . '/characters?apikey=' . $public .
+            'https://gateway.marvel.com:443/v1/public/comics/' . $id . '/characters?apikey=' . $this->marvelPublicKey .
                 '&ts=' . $ts . '&hash=' . $hash,
         );
 
